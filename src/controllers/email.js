@@ -7,7 +7,7 @@ const sendEmail = async notification => {
 
   if (id in messages) {
     clearTimeout(messages[id].timeout)
-    messages[id].message += ' ' + message
+    messages[id].message += '-' + message + '\n'
     messages[id].time = time
   } else messages[id] = { email, time, message }
 
@@ -27,7 +27,7 @@ const sendEmailNodemailer = async (email, message) => {
     await transporter.sendMail({
       from: `"${email}" <${process.env.EMAIL_SECRET}>`,
       to: email,
-      subject: 'testing',
+      subject: 'Notifications',
       text: `${message}`
     })
 
