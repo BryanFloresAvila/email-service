@@ -1,14 +1,5 @@
 import express from 'express'
-import cors from 'cors'
 import { applyRoutes } from './router.js'
-
-const whitelist = [process.env.CORS_ORIGIN, process.env.MY_DOMAIN]
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1) callback(null, true)
-    else callback(new Error('Not allowed by CORS'))
-  }
-}
 
 class Server {
   constructor() {
@@ -18,7 +9,6 @@ class Server {
 
   config() {
     this.app.set('port', process.env.PORT || 3000)
-    this.app.use(cors(corsOptions))
     this.app.use(express.json())
     this.app.use(async (req, res, next) => {
       res.header(
