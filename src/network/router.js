@@ -1,11 +1,12 @@
 import httpErrors from 'http-errors'
 import { Home, Email } from './routes/index.js'
 import { response } from './response.js'
+import { validateApiKey } from './routes/middlewares/index.js'
 const routers = [Email]
 
 const applyRoutes = app => {
   app.use('/', Home)
-  routers.forEach(router => app.use('/api', router))
+  routers.forEach(router => app.use('/api', validateApiKey, router))
 
   // Handling 404 error
   app.use((req, res, next) => {

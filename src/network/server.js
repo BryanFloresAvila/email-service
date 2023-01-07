@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { applyRoutes } from './router.js'
 
-const whitelist = [process.env.CORS_ORIGIN]
+const whitelist = [process.env.CORS_ORIGIN, process.env.MY_DOMAIN]
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1) callback(null, true)
@@ -23,12 +23,9 @@ class Server {
     this.app.use(async (req, res, next) => {
       res.header(
         'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, api-key'
+        'Origin, X-Requested-With, Content-Type'
       )
-      const apiKey = req.headers['api-key']
-      if (!apiKey || apiKey !== process.env.API_KEY)
-        res.status(401).json({ error: 'unauthorised' })
-      else next()
+      next()
     })
     applyRoutes(this.app)
   }
