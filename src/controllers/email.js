@@ -18,7 +18,7 @@ const sendEmail = async notification => {
     } catch (err) {
       return errorHandling(err, 'Error sending email')
     }
-  }, time * 1000)
+  }, time * 60 * 1000)
   console.log([email, messages[id].message])
 }
 
