@@ -1,9 +1,9 @@
-import { sendEmail } from '../utils/index.js'
-
+import { transporter } from '../utils/index.js'
+import { errorHandling } from './utils/index.js'
 const messages = {}
 
-const sendEmailC = async (req, res) => {
-  const { id, email, time, message } = req.body
+const sendEmail = async notification => {
+  const { id, email, time, message } = notification
 
   if (id in messages) {
     clearTimeout(messages[id].timeout)
@@ -11,14 +11,34 @@ const sendEmailC = async (req, res) => {
     messages[id].time = time
   } else messages[id] = { email, time, message }
 
+  let reponseSendEmail = null
+
   messages[id].timeout = setTimeout(async () => {
     try {
-      await sendEmail(email, messages[id].message)
+      reponseSendEmail = await sendEmailNodemailer(email, messages[id].message)
       delete messages[id]
     } catch (err) {
-      console.log(err)
+      return errorHandling(err, 'Error sending email')
     }
   }, time * 1000)
-  console.log([messages[id].message, messages[id].time])
+  console.log([email, messages[id].message])
+
+  if (reponseSendEmail !== null) return reponseSendEmail
 }
-export { sendEmailC }
+
+const sendEmailNodemailer = async (email, message) => {
+  try {
+    await transporter.sendMail({
+      from: `"${email}" <${process.env.EMAIL_SECRET}>`,
+      to: email,
+      subject: 'testing',
+      text: `${message}`
+    })
+
+    return 'Email sent'
+  } catch (err) {
+    return errorHandling(err, 'Error sending email')
+  }
+}
+
+export { sendEmail }

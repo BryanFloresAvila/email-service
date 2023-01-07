@@ -10,13 +10,4 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-const sendEmail = async (email, message) => {
-  await transporter.sendMail({
-    from: `"${email}" <${process.env.EMAIL_SECRET}>`,
-    to: email,
-    subject: 'testing',
-    text: `${message}`
-  })
-}
-
-export { sendEmail }
+export { transporter }
