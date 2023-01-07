@@ -7,9 +7,9 @@ const sendEmail = async notification => {
 
   if (id in messages) {
     clearTimeout(messages[id].timeout)
-    messages[id].message += '-' + message + '\n'
+    messages[id].message += `> ${message} <br>`
     messages[id].time = time
-  } else messages[id] = { email, time, message }
+  } else messages[id] = { email, time, message: `> ${message} <br>` }
 
   messages[id].timeout = setTimeout(async () => {
     try {
@@ -28,7 +28,7 @@ const sendEmailNodemailer = async (email, message) => {
       from: `"${email}" <${process.env.EMAIL_SECRET}>`,
       to: email,
       subject: 'Notifications',
-      text: `${message}`
+      html: message
     })
 
     return 'Email sent'
