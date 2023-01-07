@@ -1,0 +1,46 @@
+{
+  "name": "service2",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "description": "service 2",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src/* --ext .js",
+    "lint:fix": "eslint src/* --ext .js --fix",
+    "service": "nodemon",
+    "start": "node src/index.js",
+    "release": "standard-versiSon"
+  },
+  "author": "Bryan FLores Avila <elton.flores.a@uni.pe>",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.6.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.1"
+  },
+  "nodemonConfig": {
+    "watch": [
+      ".env",
+      "src"
+    ],
+    "ext": "js",
+    "ignore": [
+      "src/**/*.test.js"
+    ],
+    "exec": "node -r dotenv/config ./src/index"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "nodemailer": "^6.8.0"
+  }
+}
