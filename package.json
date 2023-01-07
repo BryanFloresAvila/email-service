@@ -1,8 +1,8 @@
 {
-  "name": "service2",
+  "name": "email-service",
   "version": "0.1.0",
   "main": "src/index.js",
-  "description": "service 2",
+  "description": "Service that sends 1 email for one or several notifications.",
   "type": "module",
   "scripts": {
     "lint": "eslint src/* --ext .js",
