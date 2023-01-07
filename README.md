@@ -60,4 +60,4 @@ https://email-service-a0sh.onrender.com
 ### Endpoints
 The following are the endpoints available in the API:
 
-- GET `api/email/sendEmail`: A notification is sent to be processed with the others and an email is sent.
+- POST `api/email/sendEmail`: A notification is sent to be processed with the others and an email is sent.
