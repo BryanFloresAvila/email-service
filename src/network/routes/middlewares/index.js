@@ -5,6 +5,7 @@ import { notification as notificationSchema } from '../../../schemas/index.js'
 const validateNotification = async (req, res, next) => {
   try {
     await notificationSchema.validateAsync(req.body)
+    next()
   } catch (e) {
     if (e instanceof Joi.ValidationError)
       next(new httpErrors.UnprocessableEntity(e.message))
